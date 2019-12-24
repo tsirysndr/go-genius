@@ -106,6 +106,12 @@ type User struct {
 	} `json:"current_user_metadata"`
 }
 
-func (s *ArtistsService) Get(ID int) (*Artist, error) {
-	return nil, nil
+func (s *ArtistsService) Get(ID string) (*Artist, error) {
+	var err error
+	res := new(ApiResponse)
+	s.client.base.Path("artists/").Get(ID).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Artist, nil
 }
