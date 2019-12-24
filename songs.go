@@ -27,6 +27,12 @@ type Song struct {
 	PrimaryArtist *Artist `json:"primary_artist"`
 }
 
-func (s *SongsService) Get(ID int) (*Song, error) {
-	return nil, nil
+func (s *SongsService) Get(ID string) (*Song, error) {
+	var err error
+	res := new(ApiResponse)
+	s.client.base.Path("songs/").Get(ID).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Song, nil
 }
