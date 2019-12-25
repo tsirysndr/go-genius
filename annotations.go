@@ -37,6 +37,17 @@ type Author struct {
 	User        *User  `json:"user"`
 }
 
-func (s *AnnotationsService) Get(ID int) (*Annotation, error) {
-	return nil, nil
+type AnnotationsParams struct {
+	TextFormat string `url:"text_format"`
+}
+
+func (s *AnnotationsService) Get(ID string) (*Annotation, error) {
+	var err error
+	params := &AnnotationsParams{"plain"}
+	res := new(ApiResponse)
+	s.client.base.Path("annotations/").Get(ID).QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Annotation, nil
 }
