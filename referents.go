@@ -38,14 +38,26 @@ type Referent struct {
 	Annotations []Annotation `json:"annotations"`
 }
 
-func (s *ReferentsService) GetBySongID(songID int) ([]Referent, error) {
+type ReferentsParams struct {
+	SongID     int    `url:"song_id"`
+	TextFormat string `url:"text_format"`
+}
+
+func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
+	var err error
+	params := &ReferentsParams{SongID: ID, TextFormat: "plain"}
+	res := new(ApiResponse)
+	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Referents, nil
+}
+
+func (s *ReferentsService) GetByUserID(ID int) ([]Referent, error) {
 	return nil, nil
 }
 
-func (s *ReferentsService) GetByUserID(songID int) ([]Referent, error) {
-	return nil, nil
-}
-
-func (s *ReferentsService) GetByWebPageID(songID int) ([]Referent, error) {
+func (s *ReferentsService) GetByWebPageID(ID int) ([]Referent, error) {
 	return nil, nil
 }
