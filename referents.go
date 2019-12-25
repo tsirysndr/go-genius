@@ -38,14 +38,42 @@ type Referent struct {
 	Annotations []Annotation `json:"annotations"`
 }
 
-func (s *ReferentsService) GetBySongID(songID int) ([]Referent, error) {
-	return nil, nil
+type ReferentsParams struct {
+	WebPageID   int    `url:"web_page_id"`
+	CreatedByID int    `url:"create_by_id"`
+	SongID      int    `url:"song_id"`
+	TextFormat  string `url:"text_format"`
 }
 
-func (s *ReferentsService) GetByUserID(songID int) ([]Referent, error) {
-	return nil, nil
+func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
+	var err error
+	params := &ReferentsParams{SongID: ID, TextFormat: "plain"}
+	res := new(ApiResponse)
+	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Referents, nil
 }
 
-func (s *ReferentsService) GetByWebPageID(songID int) ([]Referent, error) {
-	return nil, nil
+func (s *ReferentsService) GetByUserID(ID int) ([]Referent, error) {
+	var err error
+	params := &ReferentsParams{CreatedByID: ID, TextFormat: "plain"}
+	res := new(ApiResponse)
+	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Referents, nil
+}
+
+func (s *ReferentsService) GetByWebPageID(ID int) ([]Referent, error) {
+	var err error
+	params := &ReferentsParams{WebPageID: ID, TextFormat: "plain"}
+	res := new(ApiResponse)
+	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Referents, nil
 }
