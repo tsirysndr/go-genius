@@ -42,6 +42,18 @@ hits, _ := json.Marshal(res)
 fmt.Println(string(hits))
 ```
 
+## Coverage
+
+Currently the following services are supported:
+
+- [x] Search
+- [x] Get artist
+- [ ] Get documents (songs) for the artist specified
+- [x] Get referents
+- [ ] Get annotation
+- [x] Get song
+- [ ] Web Pages
+
 ## Author
 
 👤 **Tsiry Sandratraina**
