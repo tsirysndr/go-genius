@@ -106,10 +106,15 @@ type User struct {
 	} `json:"current_user_metadata"`
 }
 
+type ArtistParams struct {
+	TextFormat string `url:"text_format"`
+}
+
 func (s *ArtistsService) Get(ID string) (*Artist, error) {
 	var err error
+	params := &ArtistParams{"plain"}
 	res := new(ApiResponse)
-	s.client.base.Path("artists/").Get(ID).Receive(res, err)
+	s.client.base.Path("artists/").Get(ID).QueryStruct(params).Receive(res, err)
 	if err != nil {
 		return nil, err
 	}
