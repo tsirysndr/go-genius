@@ -39,8 +39,9 @@ type Referent struct {
 }
 
 type ReferentsParams struct {
-	SongID     int    `url:"song_id"`
-	TextFormat string `url:"text_format"`
+	CreatedByID int    `url:"create_by_id"`
+	SongID      int    `url:"song_id"`
+	TextFormat  string `url:"text_format"`
 }
 
 func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
@@ -55,7 +56,14 @@ func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
 }
 
 func (s *ReferentsService) GetByUserID(ID int) ([]Referent, error) {
-	return nil, nil
+	var err error
+	params := &ReferentsParams{CreatedByID: ID, TextFormat: "plain"}
+	res := new(ApiResponse)
+	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	if err != nil {
+		return nil, err
+	}
+	return res.Response.Referents, nil
 }
 
 func (s *ReferentsService) GetByWebPageID(ID int) ([]Referent, error) {
