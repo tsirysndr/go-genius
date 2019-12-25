@@ -50,7 +50,7 @@ Currently the following services are supported:
 - [x] Get artist
 - [ ] Get documents (songs) for the artist specified
 - [x] Get referents
-- [ ] Get annotation
+- [x] Get annotation
 - [x] Get song
 - [ ] Web Pages
 
