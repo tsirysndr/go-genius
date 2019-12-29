@@ -3,111 +3,111 @@ package genius
 type ArtistsService service
 
 type Artist struct {
-	AlternateNames      []string    `json:"alternate_names"`
-	ApiPath             string      `json:"api_path"`
-	Description         interface{} `json:"description"`
-	FacebookName        string      `json:"facebook_name"`
-	FollowersCount      int         `json:"followers_count"`
-	HeaderImageURL      string      `json:"header_image_url"`
-	ID                  string      `json:"id"`
-	ImageURL            string      `json:"image_url"`
-	InstagramName       string      `json:"instagram_name"`
-	IsMemeVerified      bool        `json:"is_meme_verified"`
-	IsVerified          bool        `json:"is_verified"`
-	Name                string      `json:"name"`
-	TranslationArtist   bool        `json:"translation_artist"`
-	TwitterName         string      `json:"twitter_name"`
-	URL                 string      `json:"url"`
+	AlternateNames      []string    `json:"alternate_names,omitempty"`
+	ApiPath             string      `json:"api_path,omitempty"`
+	Description         interface{} `json:"description,omitempty"`
+	FacebookName        string      `json:"facebook_name,omitempty"`
+	FollowersCount      int         `json:"followers_count,omitempty"`
+	HeaderImageURL      string      `json:"header_image_url,omitempty"`
+	ID                  string      `json:"id,omitempty"`
+	ImageURL            string      `json:"image_url,omitempty"`
+	InstagramName       string      `json:"instagram_name,omitempty"`
+	IsMemeVerified      bool        `json:"is_meme_verified,omitempty"`
+	IsVerified          bool        `json:"is_verified,omitempty"`
+	Name                string      `json:"name,omitempty"`
+	TranslationArtist   bool        `json:"translation_artist,omitempty"`
+	TwitterName         string      `json:"twitter_name,omitempty"`
+	URL                 string      `json:"url,omitempty"`
 	CurrentUserMetadata *struct {
-		Permissions         []string `json:"permissions"`
-		ExcludedPermissions []string `json:"excluded_permissions"`
+		Permissions         []string `json:"permissions,omitempty"`
+		ExcludedPermissions []string `json:"excluded_permissions,omitempty"`
 		Interactions        *struct {
-			Following bool `json:"following"`
-		} `json:"interactions"`
-	} `json:"current_user_metadata"`
-	IQ                    int `json:"iq"`
+			Following bool `json:"following,omitempty"`
+		} `json:"interactions,omitempty"`
+	} `json:"current_user_metadata,omitempty"`
+	IQ                    int `json:"iq,omitempty"`
 	DescriptionAnnotation *struct {
-		Type           string `json:"_type"`
-		AnnotatorID    int    `json:"annotator_id"`
-		AnnotatorLogin string `json:"annotator_login"`
-		ApiPath        string `json:"api_path"`
-		Classification string `json:"classification"`
-		Fragment       string `json:"fragment"`
-		ID             int    `json:"id"`
-		IsDescription  bool   `json:"is_description"`
-		Path           string `json:"path"`
+		Type           string `json:"_type,omitempty"`
+		AnnotatorID    int    `json:"annotator_id,omitempty"`
+		AnnotatorLogin string `json:"annotator_login,omitempty"`
+		ApiPath        string `json:"api_path,omitempty"`
+		Classification string `json:"classification,omitempty"`
+		Fragment       string `json:"fragment,omitempty"`
+		ID             int    `json:"id,omitempty"`
+		IsDescription  bool   `json:"is_description,omitempty"`
+		Path           string `json:"path,omitempty"`
 		Range          *struct {
-			Content string `json:"content"`
-		} `json:"range"`
-		SongID               int    `json:"song_id"`
-		URL                  string `json:"url"`
-		VerifiedAnnotatorIDs []int  `json:"verified_annotator_ids"`
+			Content string `json:"content,omitempty"`
+		} `json:"range,omitempty"`
+		SongID               int    `json:"song_id,omitempty"`
+		URL                  string `json:"url,omitempty"`
+		VerifiedAnnotatorIDs []int  `json:"verified_annotator_ids,omitempty"`
 		Annotatable          *struct {
-			ApiPath   string `json:"api_path"`
-			Context   string `json:"context"`
-			ID        int    `json:"id"`
-			ImageURL  string `json:"image_url"`
-			LinkTitle string `json:"link_title"`
-			Title     string `json:"title"`
-			Type      string `json:"type"`
-			URL       string `json:"url"`
-		} `json:"annotatable"`
-		Annotations []Annotation `json:"annotations"`
-	} `json:"description_annotation"`
-	User *User `json:"user"`
+			ApiPath   string `json:"api_path,omitempty"`
+			Context   string `json:"context,omitempty"`
+			ID        int    `json:"id,omitempty"`
+			ImageURL  string `json:"image_url,omitempty"`
+			LinkTitle string `json:"link_title,omitempty"`
+			Title     string `json:"title,omitempty"`
+			Type      string `json:"type,omitempty"`
+			URL       string `json:"url,omitempty"`
+		} `json:"annotatable,omitempty"`
+		Annotations []Annotation `json:"annotations,omitempty"`
+	} `json:"description_annotation,omitempty"`
+	User *User `json:"user,omitempty"`
 }
 
 type User struct {
-	ApiPath string `json:"api_path"`
+	ApiPath string `json:"api_path,omitempty"`
 	Avatar  *struct {
 		Tiny *struct {
-			URL         string `json:"url"`
+			URL         string `json:"url,omitempty"`
 			BoundingBox *struct {
-				Width  int `json:"width"`
-				Height int `json:"height"`
-			} `json:"bounding_box"`
-		} `json:"tiny"`
+				Width  int `json:"width,omitempty"`
+				Height int `json:"height,omitempty"`
+			} `json:"bounding_box,omitempty"`
+		} `json:"tiny,omitempty"`
 		Thumb *struct {
-			URL         string `json:"url"`
+			URL         string `json:"url,omitempty"`
 			BoundingBox *struct {
-				Width  int `json:"width"`
-				Height int `json:"height"`
-			} `json:"bounding_box"`
-		} `json:"thumb"`
+				Width  int `json:"width,omitempty"`
+				Height int `json:"height,omitempty"`
+			} `json:"bounding_box,omitempty"`
+		} `json:"thumb,omitempty"`
 		Small *struct {
-			URL         string `json:"url"`
+			URL         string `json:"url,omitempty"`
 			BoundingBox *struct {
-				Width  int `json:"width"`
-				Height int `json:"height"`
-			} `json:"bounding_box"`
-		} `json:"small"`
+				Width  int `json:"width,omitempty"`
+				Height int `json:"height,omitempty"`
+			} `json:"bounding_box,omitempty"`
+		} `json:"small,omitempty"`
 		Medium *struct {
-			URL         string `json:"url"`
+			URL         string `json:"url,omitempty"`
 			BoundingBox *struct {
-				Width  int `json:"width"`
-				Height int `json:"height"`
-			} `json:"bounding_box"`
-		} `json:"medium"`
-	} `json:"avatar"`
-	HeaderImageURL              string `json:"header_image_url"`
-	HumanReadableRoleForDisplay string `json:"human_readable_role_for_display"`
-	ID                          int    `json:"id"`
-	IQ                          int    `json:"iq"`
-	Login                       string `json:"login"`
-	Name                        string `json:"string"`
-	RoleForDisplay              string `json:"role_for_display"`
-	URL                         string `json:"url"`
+				Width  int `json:"width,omitempty"`
+				Height int `json:"height,omitempty"`
+			} `json:"bounding_box,omitempty"`
+		} `json:"medium,omitempty"`
+	} `json:"avatar,omitempty"`
+	HeaderImageURL              string `json:"header_image_url,omitempty"`
+	HumanReadableRoleForDisplay string `json:"human_readable_role_for_display,omitempty"`
+	ID                          int    `json:"id,omitempty"`
+	IQ                          int    `json:"iq,omitempty"`
+	Login                       string `json:"login,omitempty"`
+	Name                        string `json:"string,omitempty"`
+	RoleForDisplay              string `json:"role_for_display,omitempty"`
+	URL                         string `json:"url,omitempty"`
 	CurrentUserMetadata         *struct {
-		Permissions         []string `json:"permissions"`
-		ExcludedPermissions []string `json:"excluded_permissions"`
+		Permissions         []string `json:"permissions,omitempty"`
+		ExcludedPermissions []string `json:"excluded_permissions,omitempty"`
 		Interactions        *struct {
-			Following bool `json:"following"`
-		} `json:"interactions"`
-	} `json:"current_user_metadata"`
+			Following bool `json:"following,omitempty"`
+		} `json:"interactions,omitempty"`
+	} `json:"current_user_metadata,omitempty"`
 }
 
 type ArtistParams struct {
-	TextFormat string `url:"text_format"`
+	TextFormat string `url:"text_format,omitempty"`
 }
 
 func (s *ArtistsService) Get(ID string) (*Artist, error) {

@@ -23,15 +23,15 @@ type service struct {
 
 type ApiResponse struct {
 	Meta *struct {
-		Status int `json:"status"`
-	} `json:"meta"`
+		Status int `json:"status,omitempty"`
+	} `json:"meta,omitempty"`
 	Response *struct {
-		Annotation *Annotation `json:"annotation"`
-		Referents  []Referent  `json:"referents"`
-		Song       *Song       `json:"song"`
-		Artist     *Artist     `json:"artist"`
-		Hits       []Hit       `json:"hits"`
-	} `json:"response"`
+		Annotation *Annotation `json:"annotation,omitempty"`
+		Referents  []Referent  `json:"referents,omitempty"`
+		Song       *Song       `json:"song,omitempty"`
+		Artist     *Artist     `json:"artist,omitempty"`
+		Hits       []Hit       `json:"hits,omitempty"`
+	} `json:"response,omitempty"`
 }
 
 func NewClient(accessToken string) *Client {
