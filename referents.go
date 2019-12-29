@@ -3,46 +3,46 @@ package genius
 type ReferentsService service
 
 type Referent struct {
-	Type           string `json:"_type"`
-	AnnotatorID    int    `json:"annotator_id"`
-	AnnotatorLogin string `json:"annotator_login"`
-	ApiPath        string `json:"api_path"`
-	Classification string `json:"classification"`
-	Featured       bool   `json:"featured"`
-	Fragment       string `json:"fragment"`
-	ID             int    `json:"id"`
-	IsDescription  bool   `json:"is_description"`
-	Path           string `json:"path"`
+	Type           string `json:"_type,omitempty"`
+	AnnotatorID    int    `json:"annotator_id,omitempty"`
+	AnnotatorLogin string `json:"annotator_login,omitempty"`
+	ApiPath        string `json:"api_path,omitempty"`
+	Classification string `json:"classification,omitempty"`
+	Featured       bool   `json:"featured,omitempty"`
+	Fragment       string `json:"fragment,omitempty"`
+	ID             int    `json:"id,omitempty"`
+	IsDescription  bool   `json:"is_description,omitempty"`
+	Path           string `json:"path,omitempty"`
 	Range          *struct {
-		Start       string `json:"start"`
-		StartOffset string `json:"startOffset"`
-		End         string `json:"end"`
-		EndOffset   string `json:"endOffset"`
-		Before      string `json:"before"`
-		After       string `json:"after"`
-		Content     string `json:"content"`
-	} `json:"range"`
-	SongID               int    `json:"song_id"`
-	URL                  string `json:"url"`
-	VerifiedAnnotatorIDs []int  `json:"verified_annotator_ids"`
+		Start       string `json:"start,omitempty"`
+		StartOffset string `json:"startOffset,omitempty"`
+		End         string `json:"end,omitempty"`
+		EndOffset   string `json:"endOffset,omitempty"`
+		Before      string `json:"before,omitempty"`
+		After       string `json:"after,omitempty"`
+		Content     string `json:"content,omitempty"`
+	} `json:"range,omitempty"`
+	SongID               int    `json:"song_id,omitempty"`
+	URL                  string `json:"url,omitempty"`
+	VerifiedAnnotatorIDs []int  `json:"verified_annotator_ids,omitempty"`
 	Annotatable          *struct {
-		ApiPath   string `json:"api_path"`
-		Context   string `json:"context"`
-		ID        int    `json:"id"`
-		ImageURL  string `json:"image_url"`
-		LinkTitle string `json:"link_title"`
-		Title     string `json:"title"`
-		Type      string `json:"type"`
-		URL       string `json:"url"`
-	} `json:"annotatable"`
-	Annotations []Annotation `json:"annotations"`
+		ApiPath   string `json:"api_path,omitempty"`
+		Context   string `json:"context,omitempty"`
+		ID        int    `json:"id,omitempty"`
+		ImageURL  string `json:"image_url,omitempty"`
+		LinkTitle string `json:"link_title,omitempty"`
+		Title     string `json:"title,omitempty"`
+		Type      string `json:"type,omitempty"`
+		URL       string `json:"url,omitempty"`
+	} `json:"annotatable,omitempty"`
+	Annotations []Annotation `json:"annotations,omitempty"`
 }
 
 type ReferentsParams struct {
-	WebPageID   int    `url:"web_page_id"`
-	CreatedByID int    `url:"create_by_id"`
-	SongID      int    `url:"song_id"`
-	TextFormat  string `url:"text_format"`
+	WebPageID   int    `url:"web_page_id,omitempty"`
+	CreatedByID int    `url:"create_by_id,omitempty"`
+	SongID      int    `url:"song_id,omitempty"`
+	TextFormat  string `url:"text_format,omitempty"`
 }
 
 func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
