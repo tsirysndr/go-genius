@@ -36,12 +36,14 @@ type SearchParams struct {
 }
 
 func (s *SearchService) Get(q string) ([]Hit, error) {
-	var err error
-	params := &SearchParams{q}
+	var params = &SearchParams{q}
 	res := new(ApiResponse)
-	s.client.base.Get("search").QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Get("search").QueryStruct(params).Receive(res, res)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	hits := res.Response.Hits
 	return hits, nil
