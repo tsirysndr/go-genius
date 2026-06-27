@@ -46,34 +46,40 @@ type ReferentsParams struct {
 }
 
 func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
-	var err error
 	params := &ReferentsParams{SongID: ID, TextFormat: "plain"}
 	res := new(ApiResponse)
-	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	return res.Response.Referents, nil
 }
 
 func (s *ReferentsService) GetByUserID(ID int) ([]Referent, error) {
-	var err error
 	params := &ReferentsParams{CreatedByID: ID, TextFormat: "plain"}
 	res := new(ApiResponse)
-	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	return res.Response.Referents, nil
 }
 
 func (s *ReferentsService) GetByWebPageID(ID int) ([]Referent, error) {
-	var err error
 	params := &ReferentsParams{WebPageID: ID, TextFormat: "plain"}
 	res := new(ApiResponse)
-	s.client.base.Get("referents").QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	return res.Response.Referents, nil
 }

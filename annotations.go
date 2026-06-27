@@ -42,12 +42,14 @@ type AnnotationsParams struct {
 }
 
 func (s *AnnotationsService) Get(ID string) (*Annotation, error) {
-	var err error
 	params := &AnnotationsParams{"plain"}
 	res := new(ApiResponse)
-	s.client.base.Path("annotations/").Get(ID).QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Path("annotations/").Get(ID).QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	return res.Response.Annotation, nil
 }
