@@ -26,15 +26,15 @@ type Annotation struct {
 	} `json:"current_user_metadata,omitempty"`
 	Authors          []Author      `json:"authors,omitempty"`
 	CosignedBy       []interface{} `json:"cosigned_by,omitempty"`
-	RejectionComment string        `json:"rejection_comment,omitempty"`
+	RejectionComment interface{}   `json:"rejection_comment,omitempty"`
 	VerifiedBy       *User         `json:"verified_by,omitempty"`
 	Referent         *Referent     `json:"referent,omitempty"`
 }
 
 type Author struct {
-	Attribution int    `json:"attribution,omitempty"`
-	PinnedRole  string `json:"pinned_role,omitempty"`
-	User        *User  `json:"user,omitempty"`
+	Attribution float64 `json:"attribution,omitempty"`
+	PinnedRole  string  `json:"pinned_role,omitempty"`
+	User        *User   `json:"user,omitempty"`
 }
 
 type AnnotationsParams struct {
@@ -42,12 +42,14 @@ type AnnotationsParams struct {
 }
 
 func (s *AnnotationsService) Get(ID string) (*Annotation, error) {
-	var err error
 	params := &AnnotationsParams{"plain"}
 	res := new(ApiResponse)
-	s.client.base.Path("annotations/").Get(ID).QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Path("annotations/").Get(ID).QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
+	}
+	if res.Response == nil {
+		return nil, nil
 	}
 	return res.Response.Annotation, nil
 }

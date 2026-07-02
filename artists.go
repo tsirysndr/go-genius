@@ -9,7 +9,7 @@ type Artist struct {
 	FacebookName        string      `json:"facebook_name,omitempty"`
 	FollowersCount      int         `json:"followers_count,omitempty"`
 	HeaderImageURL      string      `json:"header_image_url,omitempty"`
-	ID                  string      `json:"id,omitempty"`
+		ID                  int         `json:"id,omitempty"`
 	ImageURL            string      `json:"image_url,omitempty"`
 	InstagramName       string      `json:"instagram_name,omitempty"`
 	IsMemeVerified      bool        `json:"is_meme_verified,omitempty"`
@@ -110,13 +110,42 @@ type ArtistParams struct {
 	TextFormat string `url:"text_format,omitempty"`
 }
 
+type ArtistSongsParams struct {
+	Sort       string `url:"sort,omitempty"`
+	PerPage    int    `url:"per_page,omitempty"`
+	Page       int    `url:"page,omitempty"`
+	TextFormat string `url:"text_format,omitempty"`
+}
+
 func (s *ArtistsService) Get(ID string) (*Artist, error) {
-	var err error
 	params := &ArtistParams{"plain"}
 	res := new(ApiResponse)
-	s.client.base.Path("artists/").Get(ID).QueryStruct(params).Receive(res, err)
+	_, err := s.client.base.Path("artists/").Get(ID).QueryStruct(params).Receive(res, nil)
 	if err != nil {
 		return nil, err
 	}
+	if res.Response == nil {
+		return nil, nil
+	}
 	return res.Response.Artist, nil
+}
+
+// GetSongs returns songs by an artist. Use nil params for defaults.
+// The endpoint is GET /artists/{id}/songs.
+func (s *ArtistsService) GetSongs(ID string, params *ArtistSongsParams) ([]Song, *int, error) {
+	if params == nil {
+		params = &ArtistSongsParams{TextFormat: "plain"}
+	}
+	if params.TextFormat == "" {
+		params.TextFormat = "plain"
+	}
+	res := new(ApiResponse)
+	_, err := s.client.base.Path("artists/").Get(ID+"/songs").QueryStruct(params).Receive(res, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	if res.Response == nil {
+		return nil, nil, nil
+	}
+	return res.Response.Songs, res.Response.NextPage, nil
 }
