@@ -26,15 +26,15 @@ type Annotation struct {
 	} `json:"current_user_metadata,omitempty"`
 	Authors          []Author      `json:"authors,omitempty"`
 	CosignedBy       []interface{} `json:"cosigned_by,omitempty"`
-	RejectionComment string        `json:"rejection_comment,omitempty"`
+	RejectionComment interface{}   `json:"rejection_comment,omitempty"`
 	VerifiedBy       *User         `json:"verified_by,omitempty"`
 	Referent         *Referent     `json:"referent,omitempty"`
 }
 
 type Author struct {
-	Attribution int    `json:"attribution,omitempty"`
-	PinnedRole  string `json:"pinned_role,omitempty"`
-	User        *User  `json:"user,omitempty"`
+	Attribution float64 `json:"attribution,omitempty"`
+	PinnedRole  string  `json:"pinned_role,omitempty"`
+	User        *User   `json:"user,omitempty"`
 }
 
 type AnnotationsParams struct {

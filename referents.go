@@ -42,44 +42,81 @@ type ReferentsParams struct {
 	WebPageID   int    `url:"web_page_id,omitempty"`
 	CreatedByID int    `url:"create_by_id,omitempty"`
 	SongID      int    `url:"song_id,omitempty"`
+	PerPage     int    `url:"per_page,omitempty"`
+	Page        int    `url:"page,omitempty"`
 	TextFormat  string `url:"text_format,omitempty"`
 }
 
 func (s *ReferentsService) GetBySongID(ID int) ([]Referent, error) {
-	params := &ReferentsParams{SongID: ID, TextFormat: "plain"}
-	res := new(ApiResponse)
-	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
-	if err != nil {
-		return nil, err
-	}
-	if res.Response == nil {
-		return nil, nil
-	}
-	return res.Response.Referents, nil
+	_, refs, err := s.GetBySongIDPages(ID, 0, 0)
+	return refs, err
 }
 
 func (s *ReferentsService) GetByUserID(ID int) ([]Referent, error) {
-	params := &ReferentsParams{CreatedByID: ID, TextFormat: "plain"}
-	res := new(ApiResponse)
-	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
-	if err != nil {
-		return nil, err
-	}
-	if res.Response == nil {
-		return nil, nil
-	}
-	return res.Response.Referents, nil
+	_, refs, err := s.GetByUserIDPages(ID, 0, 0)
+	return refs, err
 }
 
 func (s *ReferentsService) GetByWebPageID(ID int) ([]Referent, error) {
-	params := &ReferentsParams{WebPageID: ID, TextFormat: "plain"}
+	_, refs, err := s.GetByWebPageIDPages(ID, 0, 0)
+	return refs, err
+}
+
+// GetBySongIDPages returns referents for a song with pagination.
+// page=0 and perPage=0 means no pagination (API defaults).
+// Returns (nextPage, referents, error). nextPage is nil on the last page.
+func (s *ReferentsService) GetBySongIDPages(ID int, page, perPage int) (*int, []Referent, error) {
+	params := &ReferentsParams{
+		SongID:     ID,
+		PerPage:    perPage,
+		Page:       page,
+		TextFormat: "plain",
+	}
 	res := new(ApiResponse)
 	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if res.Response == nil {
-		return nil, nil
+		return nil, nil, nil
 	}
-	return res.Response.Referents, nil
+	return res.Response.NextPage, res.Response.Referents, nil
+}
+
+// GetByUserIDPages returns referents by user with pagination.
+func (s *ReferentsService) GetByUserIDPages(ID int, page, perPage int) (*int, []Referent, error) {
+	params := &ReferentsParams{
+		CreatedByID: ID,
+		PerPage:     perPage,
+		Page:        page,
+		TextFormat:  "plain",
+	}
+	res := new(ApiResponse)
+	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	if res.Response == nil {
+		return nil, nil, nil
+	}
+	return res.Response.NextPage, res.Response.Referents, nil
+}
+
+// GetByWebPageIDPages returns referents for a web page with pagination.
+func (s *ReferentsService) GetByWebPageIDPages(ID int, page, perPage int) (*int, []Referent, error) {
+	params := &ReferentsParams{
+		WebPageID:  ID,
+		PerPage:    perPage,
+		Page:       page,
+		TextFormat: "plain",
+	}
+	res := new(ApiResponse)
+	_, err := s.client.base.Get("referents").QueryStruct(params).Receive(res, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	if res.Response == nil {
+		return nil, nil, nil
+	}
+	return res.Response.NextPage, res.Response.Referents, nil
 }

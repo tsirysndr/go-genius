@@ -29,7 +29,9 @@ type ApiResponse struct {
 		Annotation *Annotation `json:"annotation,omitempty"`
 		Referents  []Referent  `json:"referents,omitempty"`
 		Song       *Song       `json:"song,omitempty"`
+		Songs      []Song      `json:"songs,omitempty"`
 		Artist     *Artist     `json:"artist,omitempty"`
+		NextPage   *int        `json:"next_page,omitempty"`
 		Hits       []Hit       `json:"hits,omitempty"`
 	} `json:"response,omitempty"`
 }
